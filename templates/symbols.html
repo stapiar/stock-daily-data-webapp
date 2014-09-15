@@ -1,0 +1,53 @@
+
+{% extends 'base.html' %}
+{% block title %}<h1>Symbols</h1>{% endblock %}
+{% block content %}
+
+<script type="text/javascript" charset="utf-8">
+
+    $(function () {
+        $(document).ready(function() {
+            $('#table-symbols').dataTable({
+                "sPaginationType": "full_numbers"
+            });
+        });
+    });
+
+</script>
+
+<label>{{ message }}</label>
+
+<div class="seccion" id="symbols">
+
+<div class="formularios">
+<table id="table-symbols" border="0" cellspacing="1" style="width:100%;">
+    <thead>
+        <tr>
+           <th scope="col">Name</th>
+           <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for symbol in symbols %}
+    	<tr style="font-size:70%">
+            <td>{{ symbol }}</td>
+            <td>
+            <!-- ACTIONS -->
+            <a class="asubselected" href="/daily_curve?symbol={{ symbol }}">daily curve</a>
+            &nbsp;
+            <a class="asubselected" href="/symbol_delete?symbol={{ symbol }}">delete</a>
+            <!-- END ACTIONS -->
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+<br/>
+<div style="width:100%; text-align: right;">
+<input type="button" value="Add Symbol +" id="btn-search-founds" onclick="window.location = '/new_symbol'" class="btnie7 iconMano" />
+</div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+
+Software requirements
+---------------------
+Deploy on Linux OS: (not tested in other platform yet)
+
+Python 2.7.3
+
+Special Python Libraries:
+a) flask 0.8
+Install:
+sudo apt-get install python-flask
+b) pandas 0.8.0
+Install:
+sudo apt-get install python-pandas
+
+    
+How to deploy
+-------------
+1- Install required software.
+2- Copy the source to the deploy folder.
+3- Manually edit app_config.py with the correct params.
+4- Manually edit SYMBOLS.CSV with the desided symbols.
+5- Run the script "python update_daily_data.py", this task could take several minutes depending of the number of symbols
+(with the current list of 188 could take 9 minutes the whole process).
+6- Start the server with "python web_server.py".
+7- Open the web browser in http://[$HOST]:$PORT] ($HOST and $PORT are defined in app_config.py).
+

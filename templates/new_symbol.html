@@ -1,0 +1,65 @@
+
+{% extends 'base.html' %}
+{% block title %}<h1>Add Symbol</h1>{% endblock %}
+{% block content %}
+
+<script language="JavaScript">
+
+function newSymbolCancel() {
+    document.getElementById("symbol").value = "";
+
+}
+
+function newSymbolAccept() {
+    //get and check text box values
+    var symbol = document.getElementById("symbol").value;
+    //check valid fields
+    if (symbol == "")
+    {
+        alert("Symbol shouldn't be empty.");
+        return;
+    }
+    //check symbol not repeated
+    var symbols = [{% for item in symbols %}"{{ item }}",{% endfor %}];
+    if (symbols.indexOf(symbol) > -1)
+    {
+        alert("Symbol " + symbol + " currently exists.");
+        return;
+    }
+
+    //set url
+    var url = "/symbol_register?";
+    url += "symbol=" + symbol;
+    window.location = url;
+}
+
+</script>
+
+
+<div style="margin: 20px 30px;">
+
+    <div id="NewIndicator">
+        <div style="border: 1px solid #46b9b9;">
+            <table cellspacing="5" cellpadding="0" border="0" style="width: 100%; padding:10px;">
+                <tbody>
+                    <tr>
+                        <td colspan="3" style="height:10px;"></td>
+                    </tr>
+                    <tr>
+                        <td width="30%"><label for=""><strong>Symbol</strong></label></td>
+                        <td width="40%"><input type="text" id="symbol" style="width: 90%;" class="input" name="symbol" /></td>
+                        <td width="*"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br/>
+        <div style="width:100%; text-align: right;">
+            <input type="button" value="RESET" id="btn-search-founds" onclick="newSymbolCancel()" class="btnie7 iconMano" />
+            <input type="button" value="OK >" id="btn-search-founds" onclick="newSymbolAccept()" class="btnie7 iconMano" />
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,139 @@
+
+{% extends 'base.html' %}
+{% block title %}<h1>Daily Curve {{ symbol }}</h1>{% endblock %}
+{% block content %}
+
+<script type="text/javascript" charset="utf-8">
+
+    $(function () {
+        var chartDailyData=null;
+        $(document).ready(function() {
+            chartDailyEquity = new Highcharts.Chart({
+                chart: {
+                    renderTo: 'graficoDailyData',
+                    type: 'line',
+                    zoomType: 'xy',
+                    marginRight: 12,
+                    marginBottom: 49,
+                    backgroundColor: "#FFFFFF",
+                    borderColor: "#FFFFFF",
+                    borderWidth: 0
+                },
+                xAxis: {
+                    lineWidth : 0,
+                    gridLineWidth: 0,
+                    tickLength: 0,
+                    type: 'datetime',
+                    dateTimeLabelFormats: {
+                        day: '%e-%b<br/>%Y',
+                        week: '%e.<br/>%b',
+                        month: '%b<br/>%Y'
+                    },
+                    labels: {
+                        y: 11,
+                        style: {
+                            font: 'normal 8pt Helvetica, Arial, Geneva, sans-serif',
+                            lineHeight: '11px'
+                        }
+                    },
+                    endOnTick: true,
+                    showFirstLabel: true,
+                    showLastLabel: true,
+                    startOnTick: true
+                },
+                yAxis: {
+                    title: {
+                        text: ''
+                    },
+                    tickColor: '#C0D0E0',
+                    tickWidth: 1,
+                    tickLength: 4,
+                    lineWidth : 1,
+                    gridLineWidth: 1,
+                    gridLineDashStyle:'shortdash',
+                    labels: {
+                        formatter: function() {
+                            return Highcharts.numberFormat(this.value,1);
+                        },
+                        style: {
+                            font: 'normal 8pt Helvetica, Arial, Geneva, sans-serif'
+                        }
+                    }
+                },
+                tooltip: {
+                    formatter: function() {
+                        return "Date: "+Highcharts.dateFormat("%e-%b %Y", this.x) + "<br>Value: " + this.y;
+                    }
+                },
+                legend: {
+                    layout: 'horizontal',
+                    align: 'right',
+                    verticalAlign: 'bottom',
+                    floating:true,
+                    x: 10,
+                    y: 15,
+                    borderWidth: 1,
+                    borderColor: 'rgba(112, 113, 115, 0.2)',
+                    symbolWidth: 12,
+                    symbolPadding: 2,
+                    itemMarginTop: -4,
+                    itemMarginBottom: 0,
+                    padding: 4,
+                    itemStyle: {
+                        font: 'normal 8pt Helvetica, Arial, Geneva, sans-serif'
+                    }
+                },
+                plotOptions: {
+                    series: {
+                        lineWidth: 1,
+                        shadow: false,
+                        animation: false,
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                title: {
+                    text: ''
+                },
+                exporting: {
+                    enabled: false
+                },
+                series: [
+
+                    {
+                        name: 'Daily Data',
+                        data: [
+                        {% for item in daily_curve %}
+                            [{{ item["Date"] }}, {{ item["Close"] }}],
+                        {% endfor %}
+                        ]
+                    }
+                ]
+            });
+        });
+    });
+</script>
+
+<div id="daily-result-detalle">
+
+    <strong>Daily Data Chart</strong>
+    <table width="100%">
+        <tr>
+            <td align="center" style="vertical-align: middle;">
+                <div id="graficoDailyData" style="text-align:center; width:850px; height:400px;"></div>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+    <br>
+
+</div>
+
+{% endblock %}
+
+
